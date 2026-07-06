@@ -1,0 +1,11 @@
+# OS junk
+.DS_Store
+*.swp
+
+# Claude Code runtime state — we only track settings.json and commands/.
+# Everything else under ~/.claude is sessions/history/cache/secrets and must
+# never enter the repo. These guard against an accidental full-dir stow.
+claude/.claude/*
+!claude/.claude/settings.json
+!claude/.claude/commands/
+claude/.claude/settings.local.json
