@@ -28,6 +28,28 @@ cd ~/dev/dotfiles
 
 `install.sh` is idempotent and picks the right packages per OS (macOS vs Linux).
 
+### After stowing
+
+```sh
+brew bundle --global     # install every formula/cask in ~/.Brewfile
+./macos/defaults.sh      # apply macOS system tweaks (macOS only, changes system settings)
+```
+
+Regenerate the Brewfile snapshot anytime with:
+
+```sh
+brew bundle dump --force --global
+```
+
+### Machine-local, untracked escape hatches
+
+These are sourced/included if present but never committed — put secrets or
+per-machine settings here:
+
+- `~/.zshrc.local` — extra shell config (sourced at the end of `.zshrc`)
+- `~/.ssh/config.local` — private/internal SSH hosts (included first in `~/.ssh/config`)
+- `~/.config/gh/hosts.yml` — gh auth tokens (gitignored)
+
 ## Manual stow / unstow
 
 ```sh
@@ -45,7 +67,10 @@ directory, which is wrong here.
 | Package        | Links to                          | Platform |
 |----------------|-----------------------------------|----------|
 | `zsh`          | `~/.zshrc`, `~/.zprofile`         | all      |
-| `git`          | `~/.config/git/ignore`            | all      |
+| `git`          | `~/.config/git/config`, `~/.config/git/ignore` | all |
+| `gh`           | `~/.config/gh/config.yml`         | all      |
+| `ssh`          | `~/.ssh/config`                   | all      |
+| `brew`         | `~/.Brewfile`                     | macOS/Linux |
 | `claude`       | `~/.claude/settings.json`, `~/.claude/commands/` | all |
 | `ghostty`      | `~/.config/ghostty/`              | macOS/Linux |
 | `alacritty`    | `~/.config/alacritty/`            | all      |

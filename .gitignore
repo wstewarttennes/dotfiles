@@ -9,3 +9,13 @@ claude/.claude/*
 !claude/.claude/settings.json
 !claude/.claude/commands/
 claude/.claude/settings.local.json
+
+# SSH: track only the safe config template — never keys, known_hosts, or
+# machine-local host entries.
+ssh/.ssh/id_*
+ssh/.ssh/*.pub
+ssh/.ssh/known_hosts*
+ssh/.ssh/config.local
+
+# gh CLI: config.yml is safe; hosts.yml holds auth tokens.
+gh/.config/gh/hosts.yml

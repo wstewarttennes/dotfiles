@@ -18,8 +18,8 @@ if ! command -v stow >/dev/null 2>&1; then
 fi
 
 # --- packages ---
-# Cross-platform: shells, git, terminals, editor.
-COMMON=(zsh git claude alacritty ghostty nvim tmux starship)
+# Cross-platform: shells, git, gh, ssh, brew, claude, terminals, editor.
+COMMON=(zsh git gh ssh brew claude alacritty ghostty nvim tmux starship)
 # Linux-only: window managers, bars, X stuff, wallpapers.
 LINUX=(hyprland i3 waybar polybar picom rofi xresources screenlayout backgrounds)
 
@@ -28,9 +28,11 @@ if [[ "$OSTYPE" == linux* ]]; then
   packages+=("${LINUX[@]}")
 fi
 
-# ~/.claude and ~/.config/git already exist and hold untracked state, so ensure
-# their parents exist and always use --no-folding to link individual files.
-mkdir -p "$HOME/.claude/commands" "$HOME/.config/git"
+# Some target dirs already exist and hold untracked state; ensure parents exist
+# and always use --no-folding so we link individual files, never whole dirs.
+mkdir -p "$HOME/.claude/commands" "$HOME/.config/git" "$HOME/.config/gh"
+mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+touch "$HOME/.ssh/config.local" && chmod 600 "$HOME/.ssh/config.local"
 
 echo "Stowing: ${packages[*]}"
 for pkg in "${packages[@]}"; do
@@ -45,4 +47,7 @@ for pkg in "${packages[@]}"; do
 done
 rm -f /tmp/stow_err_$$
 
-echo "Done."
+echo
+echo "Done. Next steps (run manually):"
+echo "  brew bundle --global            # install everything in ~/.Brewfile"
+echo "  ./macos/defaults.sh             # apply macOS system tweaks (macOS only)"
