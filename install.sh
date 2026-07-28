@@ -19,7 +19,7 @@ fi
 
 # --- packages ---
 # Cross-platform: shells, git, gh, ssh, brew, claude, terminals, editor.
-COMMON=(zsh git gh ssh brew claude alacritty ghostty nvim tmux starship)
+COMMON=(zsh git gh ssh brew claude alacritty ghostty nvim tmux herdr starship)
 # Linux-only: window managers, bars, X stuff, wallpapers.
 LINUX=(hyprland i3 waybar polybar picom rofi xresources screenlayout backgrounds)
 

@@ -1,0 +1,74 @@
+# herdr config — ported from tmux/.tmux.conf
+#
+# Reload after editing:  herdr server reload-config
+# Validate:              herdr config check
+#
+# Not everything in the tmux config has a herdr equivalent; see the notes at the
+# bottom for what was dropped and why.
+
+[keys]
+# tmux: unbind C-b / set -g prefix C-a
+prefix = "ctrl+a"
+
+# tmux: bind-key h/j/k/l select-pane -L/-D/-U/-R
+focus_pane_left  = "prefix+h"
+focus_pane_down  = "prefix+j"
+focus_pane_up    = "prefix+k"
+focus_pane_right = "prefix+l"
+
+[ui]
+# tmux: set -g mouse on
+mouse_capture = true
+copy_on_select = true
+
+# tmux: set -g pane-border-lines heavy + pane-border-style
+pane_borders = true
+pane_gaps = true
+
+# The native replacement for the pane-border-format hack that shelled out to
+# pane-summary.sh for an AI summary of each pane. herdr knows what its agents
+# are doing, so this is free and always current.
+show_agent_labels_on_pane_borders = true
+
+# tmux: set -g pane-active-border-style "fg=#89b4fa" (catppuccin blue).
+# herdr has one accent rather than separate active/inactive border colors.
+accent = "#89b4fa"
+
+[theme]
+# tmux: set -g @plugin 'catppuccin/tmux' — herdr ships catppuccin as its default.
+name = "catppuccin"
+auto_switch = false
+
+[theme.custom]
+# Catppuccin Mocha values pulled from the tmux config so the two look identical.
+text     = "#cdd6f4"
+surface0 = "#313244"   # tmux message-style bg
+surface1 = "#45475a"
+overlay0 = "#6c7086"
+blue     = "#89b4fa"   # pane-active-border-style
+accent   = "#89b4fa"
+
+[session]
+# The lesson from the Jul 27 tmux crash: 55 auto-relaunched agents is what made
+# recovery expensive. Restore the workspace tree, but let the agents be started
+# deliberately. Mirrors leaving @resurrect-processes unset on the tmux side.
+resume_agents_on_restore = false
+
+# ---------------------------------------------------------------------------
+# Deliberately not ported:
+#
+#   bind r source-file          -> use `herdr server reload-config`
+#   @plugin tpm / catppuccin    -> herdr has no plugin manager; catppuccin is built in
+#   vim-tmux-navigator          -> the prefix+hjkl bindings above cover pane movement
+#   resurrect / continuum       -> herdr persists sessions natively ([session] above)
+#   @catppuccin_status_modules  -> herdr uses a sidebar, not a tmux-style status line
+#   status-position bottom      -> no status line to position
+#   pane-border-format + status-interval -> replaced by show_agent_labels_on_pane_borders
+#   default-terminal / RGB overrides     -> herdr negotiates this itself
+# ---------------------------------------------------------------------------
+
+[ui.sound]
+enabled = true
+
+[ui.toast]
+delivery = "system"
