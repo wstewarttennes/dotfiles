@@ -16,6 +16,18 @@ focus_pane_down  = "prefix+j"
 focus_pane_up    = "prefix+k"
 focus_pane_right = "prefix+l"
 
+# tmux: Ctrl-a ) / ( to cycle sessions. herdr ships these UNBOUND, so without
+# this there is no way to leave a workspace except navigate mode (prefix+g).
+# Bracket keys rather than tmux's ) and ( — those need shift, and the shifted
+# form passed straight through to the shell as a literal "^A)" instead of being
+# consumed as a binding.
+next_workspace     = "prefix+]"
+previous_workspace = "prefix+["
+
+# Jump to the next agent wanting attention. Also unbound by default, and it is
+# the whole reason the sidebar is useful - it catches agents parked on a prompt.
+next_agent = "prefix+a"
+
 [ui]
 # tmux: set -g mouse on
 mouse_capture = true
@@ -36,7 +48,7 @@ accent = "#89b4fa"
 
 [theme]
 # tmux: set -g @plugin 'catppuccin/tmux' — herdr ships catppuccin as its default.
-name = "catppuccin"
+name = "catppuccin-latte"
 auto_switch = false
 
 [theme.custom]
